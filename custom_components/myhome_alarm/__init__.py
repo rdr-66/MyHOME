@@ -27,7 +27,7 @@ from .const import (
 from .validate import config_schema, format_mac
 from .gateway import MyHOMEGatewayHandler
 
-PLATFORMS = ["light", "switch", "cover", "climate", "binary_sensor", "sensor", "alarm"]
+PLATFORMS = ["alarm"]
 
 
 async def async_setup(hass, config):
@@ -49,7 +49,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     _config_file_path = (
         str(entry.options[CONF_FILE_PATH])
         if CONF_FILE_PATH in entry.options
-        else "/config/myhome.yaml"
+        else "/config/myhome_alarm.yaml"
     )
     _generate_events = (
         entry.options[CONF_GENERATE_EVENTS]
