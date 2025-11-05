@@ -361,6 +361,7 @@ class MyhomeFlowHandler(ConfigFlow, domain=DOMAIN):
         }
 
         # rdr - listener restart request
+        LOGGER.info("rdr - requesting listener restart")
         self.hass.bus.async_fire("myhome_force_restart_event_listener")
       
         if gateway.port is not None:
@@ -451,4 +452,5 @@ class MyhomeOptionsFlowHandler(OptionsFlow):
             ),
             errors=errors,
         )
+
 
