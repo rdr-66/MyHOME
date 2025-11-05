@@ -17,3 +17,7 @@ If you've been using this integration in version 0.8 and prior, configuration st
 
 Please find the [configuration](https://github.com/anotherjulien/MyHOME/wiki/Configuration) on the project's wiki!  
 [Advanced uses](https://github.com/anotherjulien/MyHOME/wiki/Advanced-uses) are also listed in the wiki.
+
+## Note ##
+This is a modified version of the original Anotherjulien's integration that solve the issue of the periodic gateway disconnection/reset causing listener to stop.
+After a listener stop the integration is still able to send commands, however does not receive messages from the bus and does not update the entities' status.
