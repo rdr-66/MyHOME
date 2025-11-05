@@ -403,6 +403,11 @@ class MyHOMEGatewayHandler:
 
         return True
 
+    async def close_listener_only(self) -> bool:
+        LOGGER.info("%s Closing event listener only", self.log_id)
+        self._terminate_listener = True
+        return True
+    
     async def send(self, message: OWNCommand):
         await self.send_buffer.put({"message": message, "is_status_request": False})
         LOGGER.debug(
