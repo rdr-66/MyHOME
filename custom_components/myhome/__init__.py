@@ -199,6 +199,19 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
             device_registry.async_remove_device(device_id)
 
     # Defining the services
+
+    # rdr - triggered by an ssdp event restart the listener
+    async def _handle_force_restart_event_listener(event):
+        handler = hass.data[DOMAIN][entry.data[CONF_MAC]][CONF_ENTITY]
+        if handler:
+            LOGGER.info("Forzato riavvio del listener eventi (unico gateway)")
+            await hass.data[DOMAIN][entry.data[CONF_MAC]][CONF_ENTITY].close_listener_only()
+            await hass.data[DOMAIN][entry.data[CONF_MAC]][CONF_ENTITY].listening_loop()
+        else:
+            LOGGER.warning("Nessun handler trovato per riavvio evento")
+    hass.bus.async_listen("myhome_force_restart_event_listener", _handle_force_restart_event_listener)
+
+    
     async def handle_sync_time(call):
         gateway = call.data.get(ATTR_GATEWAY, None)
         if gateway is None:
@@ -286,3 +299,4 @@ async def async_unload_entry(hass, entry):
     del hass.data[DOMAIN][entry.data[CONF_MAC]]
 
     return await gateway_handler.close_listener()
+
